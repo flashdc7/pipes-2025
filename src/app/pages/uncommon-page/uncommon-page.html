@@ -1,1 +1,54 @@
-<p>uncommon-page works!</p>,
+<section class="mx-5 mb-5">
+  <h1 class="text-2xl font-bold">Pipes no tan comunes</h1>
+  <h3 class="text-xl font-thin">Pipes incluidos en Angular</h3>
+</section>
+
+<app-card title="i18nSelectPipe">
+  <p>Saludos {{ client().name }} es un placer {{ client().gender | i18nSelect:invitationMap }} al evento</p>
+  <button (click)="changeClient()" class="btn btn-primary">Cambiar cliente</button>
+</app-card>
+
+<app-card title="i18nPluralPipe">
+  <p>Actualmente hay {{clients().length | i18nPlural:clientsMap() }}</p>
+  <button [disabled]="clients().length === 0" (click)="deleteClient()" class="btn btn-primary">Borrar cliente</button>
+</app-card>
+
+<app-card title="SlicePipe">
+  <b class="mt-2">Original</b>
+  <p class="text-primary">{{ clients().join(', ')}}</p>
+  <b class="mt-2">Slice:0:2</b>
+  <p class="text-primary">{{ clients() | slice:0:2}}</p>
+  <b class="mt-2">Slice:1:3</b>
+  <p class="text-primary">{{ clients() | slice:1:3}}</p>
+</app-card>
+
+<app-card title="JsonPipe">
+  <pre class="text-primary">{{ clients() | json}}</pre>
+  <pre class="text-primary">{{ client() | json}}</pre>
+  <p class="text-primary">{{ clients().join(', ') | json}}</p>
+</app-card>
+
+<app-card title="JsonPipe">
+  <!-- <pre>{{ profile | keyvalue |json }}</pre> -->
+   <ul>
+    @for (item of profile |keyvalue; track $index) {
+      <li>
+        <strong class="text-primary">{{ item.key }}</strong>
+        <span> {{ item.value }}</span>
+      </li>
+    }
+   </ul>
+</app-card>
+
+<app-card title="Async Pipe">
+  <p>{{ promiseValue | async}}</p>
+
+  @if (promiseValue | async; as value) {
+    <p class="text-primary">{{ value }}</p>
+  }@else {
+    <p class="text-accent">Espere por favor...</p>
+  }
+
+  <h3 class="text-2xl">Observable</h3>
+  <p>{{ myObservableTimer | async}}</p>
+</app-card>
